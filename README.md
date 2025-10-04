@@ -2,47 +2,6 @@
 
 A comprehensive REST API for E-Commerce Management Portal with JWT authentication, role-based access control, and real-time inventory management.
 
-## Vercel Deployment with Database Seeding
-
-This project is configured for deployment on Vercel with automatic database seeding during the build process.
-
-### Vercel Build Command
-
-The project uses the following build command for Vercel which automatically seeds the database:
-
-```
-npm run vercel-build
-```
-
-This command:
-1. Installs all dependencies
-2. Configures environment variables
-3. Seeds the database with dummy data (products, categories, users, etc.)
-
-### Environment Variables for Vercel
-
-Set these environment variables in your Vercel project settings:
-
-- `JWT_SECRET`: Secret key for JWT token signing
-- `CORS_ORIGIN`: Frontend URL (comma-separated if multiple)
-
-### Deployment Steps
-
-1. Login to Vercel CLI:
-   ```
-   vercel login
-   ```
-
-2. Deploy the project:
-   ```
-   vercel
-   ```
-
-3. For production deployment:
-   ```
-   vercel --prod
-   ```
-
 ## Features
 
 - 🔐 JWT Authentication & Role-based Access Control

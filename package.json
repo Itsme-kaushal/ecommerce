@@ -9,8 +9,6 @@
     "seed:admin": "node src/scripts/seed-admin.js",
     "seed:all": "node src/scripts/seed-database.js",
     "seed:dummy": "node src/scripts/seed-dummy-data.js",
-    "build": "node config-env.js && node src/scripts/seed-database.js",
-    "vercel-build": "node config-env.js && node src/scripts/seed-dummy-data.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
