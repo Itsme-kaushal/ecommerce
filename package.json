@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "node src/server.js",
+    "dev": "nodemon src/server.js",
     "seed:admin": "node src/scripts/seed-admin.js",
     "seed:all": "node src/scripts/seed-database.js",
     "seed:dummy": "node src/scripts/seed-dummy-data.js",
@@ -21,6 +21,7 @@
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
+    "nodemon": "^3.1.10",
     "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7",
     "swagger-jsdoc": "^6.2.8",

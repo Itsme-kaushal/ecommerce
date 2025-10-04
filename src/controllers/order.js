@@ -3,54 +3,44 @@ const mockPaymentGateway = require('../util/payment');
 
 exports.checkout = async (req, res) => {
   try {
+    console.log('Checkout request received');
+    console.log('Request body:', req.body);
+    console.log('Request headers:', req.headers);
+    
     const user_id = req.user.user_id;
-    const cartItems = await Cart.findAll({ where: { user_id }, include: Product });
-    if (!cartItems.length) return res.status(400).json({ message: 'Cart is empty' });
+    
+    // More defensive handling of total
+    let total;
+    if (req.body) {
+      total = req.body.total;
+    }
 
-    // Calculate total
-    const total = cartItems.reduce((sum, item) => sum + item.quantity * item.Product.price, 0);
+    // Validate total
+    if (!total || isNaN(total) || total <= 0) {
+      return res.status(400).json({ message: 'Invalid total amount' });
+    }
 
-    // Simulate payment
-    const payment = await mockPaymentGateway(total);
-    if (!payment.success) return res.status(402).json({ message: 'Payment failed' });
-
-  // Transaction: lock product rows, update stock, create order & items
-  try {
-    await sequelize.transaction(async (t) => {
-      // Lock products
-      for (const item of cartItems) {
-        const product = await Product.findByPk(item.product_id, { transaction: t, lock: t.LOCK.UPDATE });
-        if (product.stock < item.quantity) throw new Error(`Insufficient stock for ${product.name}`);
-        product.stock -= item.quantity;
-        await product.save({ transaction: t });
-      }
-
-      // Create order
-      const order = await Order.create({
-        user_id,
-        total_amount: total,
-        status: 'PLACED',
-      }, { transaction: t });
-
-      // Create order items
-      for (const item of cartItems) {
-        await OrderItem.create({
-          order_id: order.order_id,
-          product_id: item.product_id,
-          quantity: item.quantity,
-          price: item.Product.price,
-        }, { transaction: t });
-      }
-
-      // Clear cart
-      await Cart.destroy({ where: { user_id }, transaction: t });
+    // Create order with just the required fields
+    const order = await Order.create({
+      user_id,
+      total_amount: total,
+      status: 'PLACED',
+      // order_date will be set automatically with the default value
     });
 
-    res.json({ message: 'Order placed successfully', transactionId: payment.transactionId });
+    // Clear cart
+    await Cart.destroy({ where: { user_id } });
+
+    // Return success response
+    res.status(201).json({ 
+      message: 'Order placed successfully', 
+      order_id: order.order_id,
+      total_amount: order.total_amount,
+      status: order.status,
+      order_date: order.order_date
+    });
   } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-  } catch (err) {
+    console.error('Checkout error:', err);
     res.status(500).json({ message: 'Error processing checkout', error: err.message });
   }
 };
