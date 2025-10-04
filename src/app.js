@@ -16,7 +16,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use(cors({
-  origin: 'http://localhost:4200',
+  origin: ['http://localhost:4200', 'https://ecommerce-one-liart-92.vercel.app/'],',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
