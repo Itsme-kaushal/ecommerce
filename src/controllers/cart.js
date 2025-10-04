@@ -4,7 +4,7 @@ exports.viewCart = async (req, res) => {
   try {
     const items = await Cart.findAll({
       where: { user_id: req.user.user_id },
-      include: Product,
+      // include: Product,
     });
     res.json(items);
   } catch (err) {
