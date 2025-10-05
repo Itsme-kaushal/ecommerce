@@ -22,18 +22,7 @@ A comprehensive REST API for E-Commerce Management Portal with JWT authenticatio
 npm install
 ```
 
-### 2. Seed Database (Optional)
-Create admin user and sample data:
-```bash
-npm run seed:all
-```
-
-Or create only admin user:
-```bash
-npm run seed:admin
-```
-
-### 3. Start Server
+### 2. Start Server
 ```bash
 npm start
 ```
