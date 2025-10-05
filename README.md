@@ -2,6 +2,8 @@
 
 A comprehensive REST API for E-Commerce Management Portal with JWT authentication, role-based access control, and real-time inventory management.
 
+**Quick Access: [API Documentation (Development)](http://localhost:3000/api-docs) | [API Documentation (Production)](https://ecombizforproj.info/api-docs)**
+
 ## Features
 
 - 🔐 JWT Authentication & Role-based Access Control
@@ -43,13 +45,15 @@ The server will start on `http://localhost:3000`
 ### Swagger UI
 Access the interactive API documentation at:
 ```
-http://localhost:3000/api-docs
+http://localhost:3000/api-docs      # Development environment
+https://ecombizforproj.info/api-docs # Production environment
 ```
 
 ### Swagger JSON
 Get the raw OpenAPI specification at:
 ```
-http://localhost:3000/swagger.json
+http://localhost:3000/swagger.json      # Development environment
+https://ecombizforproj.info/swagger.json # Production environment
 ```
 
 ## Default Credentials
